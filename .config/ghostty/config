@@ -1,0 +1,49 @@
+desktop-notifications = false
+clipboard-read = allow
+clipboard-write = allow
+theme = Gruvbox Material Dark
+font-family = "MonoLisa Variable"
+font-size = 15
+font-feature = -liga
+font-thicken = true
+
+background = #282828
+foreground = #d4be98
+selection-background = #d4be98
+selection-foreground = #282828
+cursor-color = #d4be98
+cursor-text = #282828
+
+keybind = super+shift+d=text:\x06\x73
+keybind = super+w=text:\x06\x78
+keybind = super+h=text:\x06\x68
+keybind = super+j=text:\x06\x6a
+keybind = super+k=text:\x06\x6b
+keybind = super+l=text:\x06\x6c
+keybind = super+a=text:\x01
+keybind = super+c=text:\x1bc
+
+keybind = cmd+d=unbind
+
+keybind = cmd+digit_1=unbind
+keybind = cmd+digit_2=unbind
+keybind = cmd+digit_3=unbind
+keybind = cmd+digit_4=unbind
+keybind = cmd+digit_5=unbind
+keybind = cmd+digit_6=unbind
+keybind = cmd+digit_7=unbind
+keybind = cmd+digit_8=unbind
+keybind = cmd+digit_9=unbind
+
+keybind = cmd+one=text:\x011
+keybind = cmd+two=text:\x012
+keybind = cmd+three=text:\x013
+keybind = cmd+four=text:\x014
+keybind = cmd+five=text:\x015
+keybind = cmd+six=text:\x016
+keybind = cmd+seven=text:\x017
+keybind = cmd+eight=text:\x018
+keybind = cmd+nine=text:\x019
+
+custom-shader = ~/.config/ghostty/shaders/cursor_sweep.glsl
+custom-shader-animation = true
