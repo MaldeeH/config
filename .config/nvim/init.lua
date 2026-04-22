@@ -76,6 +76,27 @@ local function set_diag_colors()
 end
 set_diag_colors()
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
+
+local function apply_dim()
+  for _, name in ipairs(vim.fn.getcompletion('', 'highlight')) do
+    local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = name, link = false })
+    if ok and hl.fg then
+      vim.api.nvim_set_hl(0, name, vim.tbl_extend('force', hl, { fg = 0x928374 }))
+    end
+  end
+end
+
+local function restore_colors()
+  vim.cmd("colorscheme gruvbox-material")
+  set_diag_colors()
+  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
+  vim.api.nvim_set_hl(0, "FloatBorder", { bg = "NONE" })
+  vim.api.nvim_set_hl(0, "StatusLineError", { fg = "#ff6b6b", bg = "NONE" })
+  vim.api.nvim_set_hl(0, "StatusLineWarn",  { fg = "#ffea00", bg = "NONE" })
+end
+
+vim.api.nvim_create_autocmd("FocusLost", { callback = apply_dim })
+vim.api.nvim_create_autocmd("FocusGained", { callback = restore_colors })
 vim.api.nvim_set_hl(0, "FloatBorder", { bg = "NONE" })
 vim.api.nvim_set_hl(0, "StatusLineError", { fg = "#ff6b6b", bg = "NONE" })
 vim.api.nvim_set_hl(0, "StatusLineWarn",  { fg = "#ffea00", bg = "NONE" })
