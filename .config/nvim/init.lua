@@ -40,6 +40,10 @@ require("mason-lspconfig").setup({
 require("oil").setup({
 	skip_confirm_for_simple_edits=true,
 	delete_to_trash = true,
+	win_options = {
+		conceallevel = 3,
+		concealcursor = "nvic",
+	},
 })
 
 local telescope = require("telescope")
@@ -163,6 +167,8 @@ vim.api.nvim_create_user_command("Config", function()
 	vim.cmd.edit(vim.fn.fnameescape(init))
 end, { desc = "Open init.lua" })
 vim.g.mapleader = " "
+vim.keymap.set({"n", "v"}, "j", "gj")
+vim.keymap.set({"n", "v"}, "k", "gk")
 vim.keymap.set("n", "<leader>q", ':q<CR>')
 vim.keymap.set("n", "<leader>w", ':w<CR>')
 vim.keymap.set("n", "<leader>c", [[:%s/\<<C-r><C-w>\>//gI<Left><Left><Left>]])
@@ -213,24 +219,26 @@ end, { desc = "Tail WellPluginLog.txt" })
 
 -- build
 vim.keymap.set("n", "<leader>ab", function()
-  vim.cmd([[terminal zsh -c "pkill -f AudioPluginHost 2>/dev/null; cd ~/code/Well && cmake --build build --target Well_VST3; echo 'Build finished. Press Enter to close'; read"]])
+  local dir = _G.NVIM_START_DIR or vim.fn.getcwd()
+  local command = "pkill -f AudioPluginHost 2>/dev/null; cmake --build build --target Well_VST3; echo 'Build finished. Press Enter to close'; read"
+  vim.cmd("enew")
+  vim.fn.termopen({ "zsh", "-lc", command }, { cwd = dir })
+  vim.cmd("startinsert")
 end, { desc = "Build Well_VST3 (cmake --build build --target Well_VST3)" })
 
 -- Run AudioPluginHost
 vim.keymap.set("n", "<leader>ar", function()
+  local dir = _G.NVIM_START_DIR or vim.fn.getcwd()
   vim.fn.jobstart({ "open", vim.fn.expand("~/code-tools/AudioPluginHost.app") }, {
+    cwd = dir,
     detach = true,
   })
 end, { desc = "Run AudioPluginHost.app" })
 
---
 -- ctrl + g to see number of lines in file
 -- ( CTRL + R + " ) to paste while in insert mode
 -- ctrl + o to jump back
 -- ctrl + i to rejump forward
---
--- Press F11 to full blast focus mode
--- THIS IS AMAZING
 --
 --Show diagnosics: <C-w>d
 --Jump diagnostics: ]d or [d
@@ -242,10 +250,8 @@ end, { desc = "Run AudioPluginHost.app" })
 -- [d and ]d to jump diagnostics
 --
 -- MORE TODO:
--- Branch name should also show in oil
 -- when copying from oil it should not show the line numbers 
 -- public private should not cause indentation with autoindent
---
--- Ask claude or something directly in the command line with "??" command. so it goes:
--- ?? Whats my age again
--- Get coding autocomplete
+
+-- Branch name in bottom bar (eg. on master )does not work for worktrees
+-- Add a shortcut to oil that executes a script when hovering over a line

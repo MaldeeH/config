@@ -1,0 +1,2 @@
+WRN 2026-04-11T15:11:02.052 ?.80591    server_start:197: Failed to start server: operation not permitted: /var/folders/mg/1l1p3dzn5115gg4n73hrscy00000gn/T/nvim.maldee/goxlGS/nvim.80591.0
+WRN 2026-04-11T15:17:27.244 ?.83894    server_start:197: Failed to start server: operation not permitted: /var/folders/mg/1l1p3dzn5115gg4n73hrscy00000gn/T/nvim.maldee/vj99Be/nvim.83894.0
