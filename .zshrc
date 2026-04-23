@@ -79,3 +79,4 @@ cd code
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 export XDG_CONFIG_HOME="$HOME/.config"
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
