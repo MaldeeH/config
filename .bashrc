@@ -59,3 +59,4 @@ nvm()  { lazy_load_nvm; command nvm  "$@"; }
 eval "$(ssh-agent -s)" >/dev/null 2>&1
 ssh-add ~/.ssh/id_ed25519 >/dev/null 2>&1 || true
 alias config='/usr/bin/git --git-dir=/Users/maldee/.cfg/ --work-tree=/Users/maldee'
+. "$HOME/.cargo/env"

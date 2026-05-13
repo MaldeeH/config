@@ -75,8 +75,10 @@ typeset -U path; path+=(/snap/bin)
 eval "$(ssh-agent -s)" >/dev/null 2>&1
 ssh-add ~/.ssh/id_ed25519 >/dev/null 2>&1 || true
 
-cd code
+[ -d ~/code ] && cd ~/code
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 export XDG_CONFIG_HOME="$HOME/.config"
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+

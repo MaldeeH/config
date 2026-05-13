@@ -41,9 +41,28 @@ require("oil").setup({
 	skip_confirm_for_simple_edits=true,
 	delete_to_trash = true,
 	win_options = {
-		conceallevel = 3,
-		concealcursor = "nvic",
+    signcolumn = "no",
+    cursorcolumn = false,
+    foldcolumn = "0",
+    spell = false,
+    list = false,
+    conceallevel = 3,
+    concealcursor = "nvic",
 	},
+})
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+  pattern = "*",
+  callback = function()
+    if vim.bo.filetype ~= "oil" then return end
+    local reg = vim.v.event.regname
+    local regtype = vim.v.event.regtype
+    local lines = vim.fn.getreg(reg, 1, true)
+    local cleaned = vim.tbl_map(function(line)
+      return line:gsub("^/%d+ ", "")
+    end, lines)
+    vim.fn.setreg(reg, cleaned, regtype)
+  end,
 })
 
 local telescope = require("telescope")
@@ -271,7 +290,6 @@ end, { desc = "Run AudioPluginHost.app" })
 -- [d and ]d to jump diagnostics
 --
 -- MORE TODO:
--- when copying from oil it should not show the line numbers 
 -- public private should not cause indentation with autoindent
 
 -- Branch name in bottom bar (eg. on master )does not work for worktrees

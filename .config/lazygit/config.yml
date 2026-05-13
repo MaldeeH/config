@@ -1,0 +1,12 @@
+customCommands:
+  - key: "$"
+    context: "global"
+    command: "ylam new"
+    description: "Run ylam new"
+    output: terminal
+
+  - key: "#"
+    context: "global"
+    command: "ylam refresh"
+    description: "Run ylam refresh"
+    output: terminal
