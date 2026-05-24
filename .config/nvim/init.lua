@@ -51,17 +51,36 @@ require("oil").setup({
 	},
 })
 
-vim.api.nvim_create_autocmd("TextYankPost", {
-  pattern = "*",
-  callback = function()
-    if vim.bo.filetype ~= "oil" then return end
-    local reg = vim.v.event.regname
-    local regtype = vim.v.event.regtype
-    local lines = vim.fn.getreg(reg, 1, true)
-    local cleaned = vim.tbl_map(function(line)
-      return line:gsub("^/%d+ ", "")
-    end, lines)
-    vim.fn.setreg(reg, cleaned, regtype)
+local function clean_oil_yank_register(reg, regtype)
+  local lines = vim.fn.getreg(reg, 1, true)
+  local cleaned = vim.tbl_map(function(line)
+    return line:gsub("^/%d+ ", "")
+  end, lines)
+  vim.fn.setreg(reg, cleaned, regtype)
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "oil",
+  callback = function(event)
+    local function yank_without_oil_line_numbers(reg)
+      return function()
+        vim.cmd.normal({ args = { '"' .. reg .. "y" }, bang = true })
+        clean_oil_yank_register(reg, vim.fn.getregtype(reg))
+      end
+    end
+
+    vim.keymap.set("x", "y", yank_without_oil_line_numbers('"'), {
+      buffer = event.buf,
+      desc = "Yank Oil entry names without line numbers",
+    })
+    vim.keymap.set("x", '"+y', yank_without_oil_line_numbers("+"), {
+      buffer = event.buf,
+      desc = "Yank Oil entry names to clipboard without line numbers",
+    })
+    vim.keymap.set("x", "<M-c>", yank_without_oil_line_numbers("+"), {
+      buffer = event.buf,
+      desc = "Copy Oil entry names to clipboard without line numbers",
+    })
   end,
 })
 
