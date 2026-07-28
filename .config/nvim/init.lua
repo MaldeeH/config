@@ -28,6 +28,7 @@ vim.pack.add( {
 	{ src = "https://github.com/mason-org/mason-lspconfig.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope.nvim",          version = "0.1.8" }, 
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
+	{ src = "https://github.com/christoomey/vim-tmux-navigator" },
 })
 
 --plugin configs
