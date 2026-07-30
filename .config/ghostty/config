@@ -16,10 +16,10 @@ cursor-text = #282828
 
 keybind = super+shift+d=text:\x06\x73
 keybind = super+w=text:\x06\x78
-keybind = super+h=text:\x08
-keybind = super+j=text:\x0a
-keybind = super+k=text:\x0b
-keybind = super+l=text:\x0c
+keybind = ctrl+h=text:\x08
+keybind = ctrl+j=text:\x0a
+keybind = ctrl+k=text:\x0b
+keybind = ctrl+l=text:\x0c
 keybind = super+a=text:\x01
 keybind = super+c=text:\x1bc
 
