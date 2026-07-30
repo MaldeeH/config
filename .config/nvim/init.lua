@@ -41,6 +41,12 @@ require("mason-lspconfig").setup({
 require("oil").setup({
 	skip_confirm_for_simple_edits=true,
 	delete_to_trash = true,
+	keymaps = {
+		["<C-h>"] = "<cmd>TmuxNavigateLeft<CR>",
+		["<C-j>"] = "<cmd>TmuxNavigateDown<CR>",
+		["<C-k>"] = "<cmd>TmuxNavigateUp<CR>",
+		["<C-l>"] = "<cmd>TmuxNavigateRight<CR>",
+	},
 	win_options = {
     signcolumn = "no",
     cursorcolumn = false,
