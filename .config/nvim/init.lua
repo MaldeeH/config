@@ -329,4 +329,6 @@ end, { desc = "Run AudioPluginHost.app" })
 -- public private should not cause indentation with autoindent
 
 -- Branch name in bottom bar (eg. on master )does not work for worktrees
--- Add a shortcut to oil that executes a script when hovering over a line
+-- Add a shortcut to oil that executes a script when hovering over a line. Maybe only shell and python scripts
+-- Easier pain switching for tmux and nvim
+-- lets not do ctrl + w for killing a window. Get a quick hotkey for killing panes tho

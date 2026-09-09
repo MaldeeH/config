@@ -15,7 +15,9 @@ cursor-color = #d4be98
 cursor-text = #282828
 
 keybind = super+shift+d=text:\x06\x73
-keybind = super+w=text:\x06\x78
+# Forward macOS window shortcuts to tmux (whose prefix is C-a).
+keybind = super+t=text:\x01\x63
+keybind = super+w=text:\x01\x26
 keybind = ctrl+h=text:\x08
 keybind = ctrl+j=text:\x0a
 keybind = ctrl+k=text:\x0b
