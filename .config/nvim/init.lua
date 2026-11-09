@@ -240,14 +240,26 @@ vim.keymap.set("n", "<leader>q", ':q<CR>')
 vim.keymap.set("n", "<leader>w", ':w<CR>')
 vim.keymap.set("n", "<leader>c", [[:%s/\<<C-r><C-w>\>//gI<Left><Left><Left>]])
 vim.keymap.set("n", "<leader>cf", function()
-  local file = vim.fn.expand("%:t")
-  if file == "" then
-    vim.notify("No file name to copy", vim.log.levels.WARN)
+  local path
+  if vim.bo.filetype == "oil" then
+    local oil = require("oil")
+    local entry = oil.get_cursor_entry()
+    local dir = oil.get_current_dir()
+    if not entry or not dir then
+      vim.notify("No file to copy", vim.log.levels.WARN)
+      return
+    end
+    path = dir .. entry.name
+  else
+    path = vim.fn.expand("%:p")
+  end
+  if path == "" then
+    vim.notify("No file path to copy", vim.log.levels.WARN)
     return
   end
-  vim.fn.setreg("+", file)
-  vim.notify("Copied file name: " .. file, vim.log.levels.INFO)
-end, { desc = "Copy current file name" })
+  vim.fn.setreg("+", path)
+  vim.notify("Copied full path: " .. path, vim.log.levels.INFO)
+end, { desc = "Copy full path of current file" })
 vim.keymap.set("n", "<leader>e", "<cmd>Oil<CR>")
 vim.keymap.set("n", "<leader>tp", "<cmd>w<CR><cmd>!typst compile %<CR>")
 vim.keymap.set("n", "<leader>r", ":e!<CR>")
@@ -297,20 +309,26 @@ end, { desc = "Tail WellPluginLog.txt" })
 
 -- build
 vim.keymap.set("n", "<leader>ab", function()
-  local dir = _G.NVIM_START_DIR or vim.fn.getcwd()
-  local command = "pkill -f AudioPluginHost 2>/dev/null; cmake --build build --target Well_VST3; echo 'Build finished. Press Enter to close'; read"
-  vim.cmd("enew")
-  vim.fn.termopen({ "zsh", "-lc", command }, { cwd = dir })
-  vim.cmd("startinsert")
-end, { desc = "Build Well_VST3 (cmake --build build --target Well_VST3)" })
+	local dir = _G.NVIM_START_DIR or vim.fn.getcwd()
+	local command = table.concat({
+		"pkill -f AudioPluginHost 2>/dev/null",
+		"(grep -q '^WELL_DEV_UNLOCKED:BOOL=ON' build/CMakeCache.txt || cmake -S . -B build -DWELL_DEV_UNLOCKED=ON)",
+		"cmake --build build --target Well_VST3",
+		"echo 'Build finished. Press Enter to close'; read",
+	}, "; ")
+	vim.cmd("enew")
+	vim.fn.termopen({ "zsh", "-lc", command }, { cwd = dir })
+	vim.cmd("startinsert")
+end, { desc = "Build unlocked dev Well_VST3" })
+
 
 -- Run AudioPluginHost
 vim.keymap.set("n", "<leader>ar", function()
-  local dir = _G.NVIM_START_DIR or vim.fn.getcwd()
-  vim.fn.jobstart({ "open", vim.fn.expand("~/code-tools/AudioPluginHost.app") }, {
-    cwd = dir,
-    detach = true,
-  })
+	local dir = _G.NVIM_START_DIR or vim.fn.getcwd()
+	vim.fn.jobstart({ "open", vim.fn.expand("~/code-tools/AudioPluginHost.app") }, {
+		cwd = dir,
+		detach = true,
+	})
 end, { desc = "Run AudioPluginHost.app" })
 
 -- ctrl + g to see number of lines in file

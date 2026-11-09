@@ -75,7 +75,7 @@ typeset -U path; path+=(/snap/bin)
 eval "$(ssh-agent -s)" >/dev/null 2>&1
 ssh-add ~/.ssh/id_ed25519 >/dev/null 2>&1 || true
 
-[ -d ~/code ] && cd ~/code
+[ "$PWD" = "$HOME" ] && [ -d ~/code ] && cd ~/code
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
