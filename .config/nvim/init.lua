@@ -29,6 +29,7 @@ vim.pack.add( {
 	{ src = "https://github.com/nvim-telescope/telescope.nvim",          version = "0.1.8" }, 
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
 	{ src = "https://github.com/christoomey/vim-tmux-navigator" },
+	{ src = "https://github.com/delphinus/md-render.nvim" },
 })
 
 --plugin configs
@@ -252,6 +253,7 @@ vim.keymap.set("n", "<leader>tp", "<cmd>w<CR><cmd>!typst compile %<CR>")
 vim.keymap.set("n", "<leader>r", ":e!<CR>")
 vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Find files" })
 vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", { desc ="Search text in files" })
+vim.keymap.set("n", "<leader>mr", "<Plug>(md-render-toggle)", { desc = "Toggle window between Markdown source and render" })
 vim.keymap.set("n", "<leader>h", ":ClangdSwitchSourceHeader <CR>")
 vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
 vim.keymap.set("n", "K",  vim.lsp.buf.hover, opts)

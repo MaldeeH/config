@@ -12,6 +12,10 @@
       "rev": "44d1e90e1f66e077268191e3ee9d2ac97cc18e65",
       "src": "https://github.com/mason-org/mason.nvim"
     },
+    "md-render.nvim": {
+      "rev": "4f6d73a276356bc23dbffa594d2a54dc978e98bb",
+      "src": "https://github.com/delphinus/md-render.nvim"
+    },
     "nvim-lspconfig": {
       "rev": "841c6d4139aedb8a3f2baf30cef5327371385b93",
       "src": "https://github.com/neovim/nvim-lspconfig"
